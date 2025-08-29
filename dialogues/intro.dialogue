@@ -1,0 +1,73 @@
+~ start
+Abby: Ouch!
+Abby: Owie!
+Abby: That crash hurt!
+Abby: How will I get around now? I need parts to repair my ship to fly again!
+=> END
+
+~ jumpscare
+Abby: Aaah! That scared me!
+Abby: What are you? Are you numbers?
+=> END
+
+~ gizmo
+
+Abby: Oh! That's my Gizmo device!
+Abby: I need to get it down.
+Abby: Let's see what problem I have to solve first.
+=> END
+
+~ tree
+
+Abby: Ah, gee!
+Abby: Looks like I need something greater than or equal to 5.
+Abby: Hey little Nums!
+Abby: Since you're numbers, will you help me solve this problem?
+Abby: I just have to add or subtract your values!
+Abby: I have a key to do it. Press [R]!
+=> END
+
+~ gizmo_retrieval
+
+Abby: Oh, look!
+Abby: My Gizmo is detecting another part nearby!
+=> END
+
+~ rubble
+
+Abby: Looks like I can't get past this without the right numbers to add. I should look around for more Nums!
+
+=> END
+
+~ boulder
+
+Abby: What's behind that boulder?
+
+=> END
+
+~ orb_absorb
+
+Abby: What's this?
+Abby: What is the sum of 6 + 3?
+- 9
+	Abby: Correct!
+	do EventManager.mark_event("quiz_correct_math_orb")
+- 3
+	Abby: Nope!
+	do EventManager.mark_event("quiz_incorrect_math_orb")
+- 6
+	Abby: Nope!
+	do EventManager.mark_event("quiz_incorrect_math_orb")
+- 7
+	Abby: Nope!
+	do EventManager.mark_event("quiz_incorrect_math_orb")
+=> END
+
+
+~ left_wing_retrieved
+
+Abby: Got it!
+Abby: The Gizmo says there another part nearby!
+Abby: It might be through this path.
+do EventManager.mark_event("left_wing_retrieved")
+=> END

@@ -1,0 +1,305 @@
+[gd_scene load_steps=34 format=3 uid="uid://h2doopfhgref"]
+
+[ext_resource type="Script" uid="uid://ccc0b1gxopatd" path="res://scripts/player.gd" id="1_onrkg"]
+[ext_resource type="Texture2D" uid="uid://3f65l6cujce7" path="res://assets/sprite_sheet.png" id="2_2hs0m"]
+[ext_resource type="Script" uid="uid://cftjubpnr001y" path="res://scripts/collection_area.gd" id="3_i3pqv"]
+[ext_resource type="Texture2D" uid="uid://ckga2v48wahxk" path="res://assets/ThinkingBubble.png" id="4_hqtel"]
+[ext_resource type="Script" uid="uid://d7axh0m3dpil" path="res://scripts/think_bubble.gd" id="4_sweqy"]
+[ext_resource type="PackedScene" uid="uid://ctc0jnwrp14n7" path="res://operand_slot.tscn" id="6_2hs0m"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_c6xj6"]
+radius = 0.0916461
+height = 0.785879
+
+[sub_resource type="Curve3D" id="Curve3D_onrkg"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, -1, 0, -1, 0, 0, 0, 0, 0, 0, -1.789, 0, -1, 0, 0, 0, 0, 0, 0, -2.818, 0, -1, 0, 0, 0, 0, 0, 0, -3.602, 0, -1, 0, 0, 0, 0, 0, 0, -4.072, 0, -1),
+"tilts": PackedFloat32Array(0, 0, 0, 0, 0)
+}
+point_count = 5
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_onrkg"]
+height = 0.224609
+radius = 0.727539
+
+[sub_resource type="Animation" id="Animation_onrkg"]
+resource_name = "IDLE"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PlayerSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_i3pqv"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PlayerSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_2hs0m"]
+resource_name = "SIDEWAYS"
+loop_mode = 1
+step = 0.143
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PlayerSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.142857, 0.285714, 0.428571, 0.571429, 0.714286, 0.857143),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [18, 19, 20, 21, 22, 23, 24]
+}
+
+[sub_resource type="Animation" id="Animation_b26j0"]
+resource_name = "SOLVE"
+
+[sub_resource type="Animation" id="Animation_1jxqw"]
+resource_name = "WALK_DOWN"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PlayerSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [1, 8]
+}
+
+[sub_resource type="Animation" id="Animation_dw050"]
+resource_name = "WALK_UP"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PlayerSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.133333, 0.25, 0.375, 0.5, 0.625, 0.75, 0.875),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [9, 11, 12, 13, 14, 15, 16, 17]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_i3pqv"]
+_data = {
+&"IDLE": SubResource("Animation_onrkg"),
+&"RESET": SubResource("Animation_i3pqv"),
+&"SIDEWAYS": SubResource("Animation_2hs0m"),
+&"SOLVE": SubResource("Animation_b26j0"),
+&"WALK_DOWN": SubResource("Animation_1jxqw"),
+&"WALK_UP": SubResource("Animation_dw050")
+}
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_nvl01"]
+animation = &"IDLE"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ivps1"]
+animation = &"IDLE"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_urp6f"]
+animation = &"IDLE"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_bwjto"]
+animation = &"IDLE"
+
+[sub_resource type="AnimationNodeBlendSpace2D" id="AnimationNodeBlendSpace2D_2hs0m"]
+blend_point_0/node = SubResource("AnimationNodeAnimation_nvl01")
+blend_point_0/pos = Vector2(0, -1)
+blend_point_1/node = SubResource("AnimationNodeAnimation_ivps1")
+blend_point_1/pos = Vector2(-1, 0)
+blend_point_2/node = SubResource("AnimationNodeAnimation_urp6f")
+blend_point_2/pos = Vector2(0, 1)
+blend_point_3/node = SubResource("AnimationNodeAnimation_bwjto")
+blend_point_3/pos = Vector2(1, 0)
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_2hs0m"]
+animation = &"WALK_DOWN"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_1jxqw"]
+animation = &"WALK_UP"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_dw050"]
+animation = &"SIDEWAYS"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_b26j0"]
+animation = &"SIDEWAYS"
+
+[sub_resource type="AnimationNodeBlendSpace2D" id="AnimationNodeBlendSpace2D_n7ghd"]
+blend_point_0/node = SubResource("AnimationNodeAnimation_2hs0m")
+blend_point_0/pos = Vector2(0, 0.99)
+blend_point_1/node = SubResource("AnimationNodeAnimation_1jxqw")
+blend_point_1/pos = Vector2(0, -0.99)
+blend_point_2/node = SubResource("AnimationNodeAnimation_dw050")
+blend_point_2/pos = Vector2(1.02, 0)
+blend_point_3/node = SubResource("AnimationNodeAnimation_b26j0")
+blend_point_3/pos = Vector2(-1.02, 0)
+min_space = Vector2(-1.02, -1)
+max_space = Vector2(1.02, 1)
+blend_mode = 1
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_nvl01"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ivps1"]
+advance_mode = 2
+advance_condition = &"is_moving"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_urp6f"]
+advance_mode = 2
+advance_condition = &"idle"
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_ivps1"]
+states/End/position = Vector2(532, 126)
+states/IDLE/node = SubResource("AnimationNodeBlendSpace2D_2hs0m")
+states/IDLE/position = Vector2(319, 136)
+states/Start/position = Vector2(127, 116)
+states/WALK/node = SubResource("AnimationNodeBlendSpace2D_n7ghd")
+states/WALK/position = Vector2(432, 42)
+transitions = ["Start", "IDLE", SubResource("AnimationNodeStateMachineTransition_nvl01"), "IDLE", "WALK", SubResource("AnimationNodeStateMachineTransition_ivps1"), "WALK", "IDLE", SubResource("AnimationNodeStateMachineTransition_urp6f")]
+graph_offset = Vector2(-202, 7)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_i3pqv"]
+size = Vector3(0.383057, 0.295349, 0.041748)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_2hs0m"]
+size = Vector3(4.70703, 1.99609, 0.611328)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_hqtel"]
+size = Vector3(4.58627, 1.2198, 0.0160522)
+
+[node name="Player" type="CharacterBody3D" groups=["Player"]]
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("1_onrkg")
+
+[node name="PlayerSprite" type="Sprite3D" parent="."]
+transform = Transform3D(0.11, 0, 0, 0, 0.11, 0, 0, 0, 0.11, 0, 0.684267, 0)
+alpha_cut = 1
+texture = ExtResource("2_2hs0m")
+hframes = 5
+vframes = 5
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.367948, 0)
+shape = SubResource("CapsuleShape3D_c6xj6")
+
+[node name="Path3D" type="Path3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.16451, 0)
+curve = SubResource("Curve3D_onrkg")
+
+[node name="CollectionRadius" type="Area3D" parent="."]
+script = ExtResource("3_i3pqv")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CollectionRadius"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.168705, 0)
+shape = SubResource("CylinderShape3D_onrkg")
+debug_color = Color(0.972514, 0, 0.440508, 0.42)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_i3pqv")
+}
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+tree_root = SubResource("AnimationNodeStateMachine_ivps1")
+anim_player = NodePath("../AnimationPlayer")
+parameters/conditions/idle = false
+parameters/conditions/is_moving = false
+parameters/IDLE/blend_position = Vector2(0, 0)
+parameters/WALK/blend_position = Vector2(1.00778, 0)
+
+[node name="PlusNipple" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PlusNipple"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.294036, 0.53544, 0.0157471)
+shape = SubResource("BoxShape3D_i3pqv")
+
+[node name="MinusNipple" type="Area3D" parent="."]
+collision_layer = 4
+collision_mask = 4
+input_capture_on_drag = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MinusNipple"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.274212, 0.53544, 0.0157471)
+shape = SubResource("BoxShape3D_i3pqv")
+
+[node name="ThinkBubble" type="StaticBody3D" parent="."]
+visible = false
+script = ExtResource("4_sweqy")
+
+[node name="Thought" type="Sprite3D" parent="ThinkBubble"]
+transform = Transform3D(0.13, 0, 0, 0, 0.13, 0, 0, 0, 0.13, -1.89733, 2.17077, 0)
+double_sided = false
+render_priority = 5
+texture = ExtResource("4_hqtel")
+
+[node name="Operator" type="Label3D" parent="ThinkBubble/Thought"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.70136, 3.19853, 0.435302)
+pixel_size = 0.0081
+outline_render_priority = 5
+modulate = Color(0, 0, 0, 1)
+text = "+"
+font_size = 700
+
+[node name="Slots" type="Label3D" parent="ThinkBubble/Thought"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.5906, 3.19853, 0.435302)
+pixel_size = 0.0081
+outline_render_priority = 6
+text = "[  ]      [  ]"
+font_size = 700
+horizontal_alignment = 0
+
+[node name="Solve" type="Label3D" parent="ThinkBubble/Thought"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.510815, -1.8947, 0.917683)
+pixel_size = 0.0081
+outline_render_priority = 5
+text = "[Solve]"
+font_size = 180
+
+[node name="SolveButton" type="Area3D" parent="ThinkBubble/Thought/Solve"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ThinkBubble/Thought/Solve/SolveButton"]
+shape = SubResource("BoxShape3D_2hs0m")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ThinkBubble"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.9169, 2.30709, 0.0279846)
+shape = SubResource("BoxShape3D_hqtel")
+
+[node name="OperandSlot" parent="ThinkBubble" instance=ExtResource("6_2hs0m")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.97248, 2.39403, 0.177251)
+
+[node name="OperandSlot2" parent="ThinkBubble" instance=ExtResource("6_2hs0m")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.935574, 2.37505, 0.177251)
+
+[connection signal="body_entered" from="CollectionRadius" to="." method="_on_collection_radius_body_entered"]
+[connection signal="body_entered" from="CollectionRadius" to="CollectionRadius" method="_on_body_entered"]
+[connection signal="input_event" from="PlusNipple" to="ThinkBubble" method="_on_plus_nipple_input_event"]
+[connection signal="input_event" from="MinusNipple" to="ThinkBubble" method="_on_minus_nipple_input_event"]
+[connection signal="input_event" from="ThinkBubble/Thought/Solve/SolveButton" to="ThinkBubble" method="_on_solve_button_input_event"]
+[connection signal="num_value_changed" from="ThinkBubble/OperandSlot" to="ThinkBubble" method="_on_operand_slot_num_value_changed"]
+[connection signal="num_value_changed" from="ThinkBubble/OperandSlot2" to="ThinkBubble" method="_on_operand_slot_num_value_changed"]

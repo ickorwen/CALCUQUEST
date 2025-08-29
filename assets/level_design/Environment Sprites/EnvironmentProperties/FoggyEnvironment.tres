@@ -1,0 +1,29 @@
+[gd_resource type="Environment" load_steps=4 format=3 uid="uid://c4v0u1kq77xgb"]
+
+[ext_resource type="Texture2D" uid="uid://rhjqp3367l1e" path="res://assets/level_design/kloofendal_48d_partly_cloudy_puresky_4k.hdr" id="1_yshhr"]
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_n4w22"]
+panorama = ExtResource("1_yshhr")
+
+[sub_resource type="Sky" id="Sky_884kg"]
+sky_material = SubResource("PanoramaSkyMaterial_n4w22")
+
+[resource]
+background_mode = 2
+background_energy_multiplier = 0.7
+sky = SubResource("Sky_884kg")
+sky_custom_fov = 51.2
+sky_rotation = Vector3(0, 0.342085, 0)
+fog_enabled = true
+fog_light_color = Color(0.122529, 0.030944, 0.119082, 1)
+fog_light_energy = 2.83
+fog_sun_scatter = 0.06
+fog_density = 0.0453
+fog_sky_affect = 0.141
+fog_height = -2.79
+fog_height_density = 3.7117
+volumetric_fog_enabled = true
+volumetric_fog_density = 0.0132
+volumetric_fog_emission = Color(0.765328, 0.726863, 0.99238, 1)
+volumetric_fog_gi_inject = 0.08
+volumetric_fog_length = 42.44

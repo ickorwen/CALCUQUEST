@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://rd5w5oiterjm"]
+
+[ext_resource type="Script" uid="uid://bgjlf672gkneo" path="res://scripts/dialogue_trigger.gd" id="1_mui1w"]
+
+[node name="DialogueTrigger" type="Area3D"]
+collision_mask = 3
+input_ray_pickable = false
+script = ExtResource("1_mui1w")
+title = "jumpscare"
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

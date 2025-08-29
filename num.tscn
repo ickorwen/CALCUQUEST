@@ -1,0 +1,132 @@
+[gd_scene load_steps=9 format=3 uid="uid://c1iypgxkfc7jd"]
+
+[ext_resource type="Script" uid="uid://bgucjwpsvt745" path="res://scripts/num.gd" id="1_j3roc"]
+[ext_resource type="Texture2D" uid="uid://ccn1smaoqevwj" path="res://assets/NUMBodies_spritesheet.png" id="2_m5257"]
+[ext_resource type="Texture2D" uid="uid://c0pijc1yoeny5" path="res://assets/NUMBERS_spritesheet.png" id="3_xw5u4"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_kljbg"]
+radius = 0.248997
+height = 1.18656
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_xw5u4"]
+radius = 0.276756
+height = 1.20233
+
+[sub_resource type="Animation" id="Animation_kljbg"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Visual:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Visual:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_xw5u4"]
+resource_name = "WALK"
+length = 0.6015
+loop_mode = 1
+step = 0.01
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Visual:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1, 0.14, 0.21, 0.29, 0.31, 0.35, 0.43, 0.5, 0.55),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(1, 1, 1), Vector3(1, 0.795, 1), Vector3(1, 0.7, 1), Vector3(1, 0.795, 1), Vector3(1, 1.25, 1), Vector3(1, 0.785, 1), Vector3(1, 0.785, 1), Vector3(1, 0.785, 1), Vector3(1, 1.25, 1), Vector3(1, 0.865, 1), Vector3(1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Visual:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1, 0.14, 0.31, 0.34, 0.43, 0.52, 0.55),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, -0.0718342, 0), Vector3(0, -0.112, 0), Vector3(0, -0.0718342, 0), Vector3(0, 1, 0), Vector3(0, 1, 0), Vector3(0, 0.1, 0), Vector3(0, -0.034, 0), Vector3(0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_0iv31"]
+_data = {
+&"RESET": SubResource("Animation_kljbg"),
+&"WALK": SubResource("Animation_xw5u4")
+}
+
+[node name="Num" type="CharacterBody3D" groups=["Nums"]]
+collision_mask = 4
+script = ExtResource("1_j3roc")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.210983, 0)
+shape = SubResource("CapsuleShape3D_kljbg")
+debug_color = Color(0, 0.745098, 0, 0.87451)
+
+[node name="Visual" type="Node3D" parent="."]
+
+[node name="ValueSprite" type="Sprite3D" parent="Visual"]
+transform = Transform3D(0.17, 0, 0, 0, 0.17, 0, 0, 0, 0.17, 0.0677629, 0.348011, -0.011524)
+shaded = true
+alpha_cut = 1
+texture_filter = 0
+texture = ExtResource("3_xw5u4")
+hframes = 4
+vframes = 3
+frame = 7
+
+[node name="NumSprites" type="Node3D" parent="Visual"]
+
+[node name="Front" type="Sprite3D" parent="Visual/NumSprites"]
+transform = Transform3D(0.135, 0, 0, 0, 0.135, 0, 0, 0, 0.135, 0, -0.1171, -0.00734787)
+gi_mode = 2
+shaded = true
+double_sided = false
+alpha_cut = 1
+texture = ExtResource("2_m5257")
+hframes = 4
+vframes = 3
+
+[node name="Back" type="Sprite3D" parent="Visual/NumSprites"]
+transform = Transform3D(0.135, 0, -2.03844e-08, 0, 0.135, 0, -2.03844e-08, 0, -0.135, 0, -0.1171, -0.0158233)
+gi_mode = 2
+shaded = true
+double_sided = false
+alpha_cut = 1
+texture = ExtResource("2_m5257")
+hframes = 4
+vframes = 3
+
+[node name="DragDetect" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DragDetect"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.217096, 0)
+shape = SubResource("CapsuleShape3D_xw5u4")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_0iv31")
+}
+
+[connection signal="input_event" from="DragDetect" to="." method="_on_drag_detect_input_event"]

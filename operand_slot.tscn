@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://ctc0jnwrp14n7"]
+
+[ext_resource type="Script" uid="uid://ds0363uwec7q1" path="res://scripts/operand_slot.gd" id="1_duhge"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_sweqy"]
+size = Vector3(0.640747, 0.766602, 0.169922)
+
+[node name="OperandSlot" type="Area3D"]
+script = ExtResource("1_duhge")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_sweqy")
+debug_color = Color(0.96, 0, 0.512, 1)
+
+[connection signal="body_entered" from="." to="." method="_on_operand_slot_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_operand_slot_body_exited"]

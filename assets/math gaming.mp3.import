@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://btxfvjotl6j5h"
+path="res://.godot/imported/math gaming.mp3-f3ec185caed4d2c109f1880a7be5ceb8.mp3str"
+
+[deps]
+
+source_file="res://assets/math gaming.mp3"
+dest_files=["res://.godot/imported/math gaming.mp3-f3ec185caed4d2c109f1880a7be5ceb8.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
