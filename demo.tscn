@@ -348,7 +348,7 @@ transform = Transform3D(1.665, 0, 0, 0, 1.665, 0, 0, 0, 1.665, 0, -11.7307, 0)
 
 [node name="Camera3D" type="Camera3D" parent="."]
 physics_interpolation_mode = 1
-transform = Transform3D(0.781139, -0.201008, 0.591115, 0.000111647, 0.946804, 0.321812, -0.624357, -0.251314, 0.739608, 10.2412, 11.9822, 21.6853)
+transform = Transform3D(0.871312, 0.12658, -0.474124, -7.45058e-09, 0.96616, 0.257943, 0.49073, -0.224748, 0.841827, -22.3424, 5.22092, 11.5128)
 
 [node name="PhantomCameraHost" type="Node" parent="Camera3D"]
 process_priority = 300
@@ -419,7 +419,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.2698, -0.258986, -6.37153
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("8_n4w22")
-volume_db = -32.212
 autoplay = true
 parameters/looping = true
 

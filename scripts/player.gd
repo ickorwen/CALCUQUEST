@@ -26,8 +26,6 @@ func _physics_process(delta: float) -> void:
 	if not is_on_floor():
 		velocity += _get_gravity() * delta
 	
-	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
-		velocity.y = JUMP_VELOCITY
 	if !Global.is_thinking:
 		input_dir = Input.get_vector("Left", "Right", "Forward", "Backward")
 	var direction := (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
