@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://dcmu21boxuuy7" path="res://assets/level_design/island_dirta.png" id="3_532tu"]
 [ext_resource type="MeshLibrary" uid="uid://ejpwfp64l2ko" path="res://assets/level_design/Environment Sprites/Environment Scenes/tiles.tres" id="4_rr0w4"]
 [ext_resource type="Texture2D" uid="uid://bu24qtq40eupr" path="res://island_Grass1.png" id="5_fxj46"]
-[ext_resource type="Texture2D" uid="uid://cr65xalseoi7q" path="res://assets/level_design/Environment Sprites/Grass2.png" id="6_f55y8"]
+[ext_resource type="Texture2D" uid="uid://ctyaup4ja0ew" path="res://assets/level_design/Environment Sprites/Grass2.png" id="6_f55y8"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rr0w4"]
 resource_name = "Material.008"

@@ -13,6 +13,7 @@ config_version=5
 config/name="GameOn"
 run/main_scene="uid://b3vv0bmmgm2ek"
 config/features=PackedStringArray("4.4", "GL Compatibility")
+run/max_fps=30
 config/icon="res://icon.svg"
 
 [audio]
@@ -27,10 +28,17 @@ NumManager="*res://scripts/num_manager.gd"
 Global="*res://scripts/global.gd"
 DialogueManager="*res://addons/dialogue_manager/dialogue_manager.gd"
 EventManager="*res://scripts/event_manager.gd"
+LevelLoader="*res://scripts/level_loader.gd"
 
 [dialogue_manager]
 
-runtime/balloon_path="uid://l0oka7nw4tec"
+runtime/balloon_path="uid://m0jdrh7q0jbe"
+
+[display]
+
+window/size/mode=3
+window/stretch/mode="canvas_items"
+mouse_cursor/size/mode=0
 
 [editor_plugins]
 
@@ -39,6 +47,7 @@ enabled=PackedStringArray("res://addons/dialogue_manager/plugin.cfg", "res://add
 [global_group]
 
 Nums="Nums"
+current_level=""
 
 [input]
 
@@ -76,8 +85,3 @@ Right={
 [internationalization]
 
 locale/translations_pot_files=PackedStringArray("res://dialogues/intro.dialogue")
-
-[rendering]
-
-renderer/rendering_method="gl_compatibility"
-renderer/rendering_method.mobile="gl_compatibility"

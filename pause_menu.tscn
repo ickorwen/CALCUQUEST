@@ -1,0 +1,50 @@
+[gd_scene load_steps=3 format=3 uid="uid://5yjclgbv14wv"]
+
+[ext_resource type="Theme" uid="uid://ffet4jmhmphx" path="res://assets/text.tres" id="1_hdmo1"]
+[ext_resource type="Script" uid="uid://2lsjkoxpye46" path="res://scripts/pause_menu.gd" id="1_nwcfo"]
+
+[node name="PauseMenu" type="CanvasLayer"]
+visible = false
+script = ExtResource("1_nwcfo")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="Panel" type="Panel" parent="Control"]
+layout_mode = 1
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -167.0
+offset_top = 89.0
+offset_right = 167.0
+offset_bottom = -89.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+theme = ExtResource("1_hdmo1")
+
+[node name="Button" type="Button" parent="Control/Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -132.0
+offset_top = -39.0
+offset_right = 132.0
+offset_bottom = 39.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+text = "Reset"
+
+[connection signal="pressed" from="Control/Panel/Button" to="." method="_on_button_pressed"]

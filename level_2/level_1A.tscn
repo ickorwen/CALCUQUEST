@@ -1,0 +1,140 @@
+[gd_scene load_steps=18 format=3 uid="uid://f8qkicxbbb2k"]
+
+[ext_resource type="Script" uid="uid://dttwiteeyx4b6" path="res://level_2/level_1a.gd" id="1_5fmy1"]
+[ext_resource type="PackedScene" uid="uid://cydgg106y4jf0" path="res://level_2/level_1a_island.tscn" id="1_o3axy"]
+[ext_resource type="Texture2D" uid="uid://dvgoby4hba0mh" path="res://assets/level_design/leaf.png" id="1_ym2oc"]
+[ext_resource type="Environment" uid="uid://c4v0u1kq77xgb" path="res://assets/level_design/Environment Sprites/EnvironmentProperties/FoggyEnvironment.tres" id="3_jtsvn"]
+[ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="4_76gsv"]
+[ext_resource type="PackedScene" uid="uid://h2doopfhgref" path="res://player.tscn" id="7_oyuya"]
+[ext_resource type="Script" uid="uid://csjccrhj5wnx7" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_3d.gd" id="8_5fmy1"]
+[ext_resource type="AudioStream" uid="uid://btxfvjotl6j5h" path="res://assets/math gaming.mp3" id="8_m8xwf"]
+[ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="9_y506e"]
+[ext_resource type="PackedScene" uid="uid://rd5w5oiterjm" path="res://dialogue_trigger.tscn" id="10_y506e"]
+[ext_resource type="PackedScene" uid="uid://c1iypgxkfc7jd" path="res://num.tscn" id="11_oyuya"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_jtsvn"]
+particle_flag_rotate_y = true
+emission_shape_scale = Vector3(27.995, 9.22, 16.66)
+emission_shape = 3
+emission_box_extents = Vector3(1, 1, 1)
+spread = 180.0
+initial_velocity_min = 5.0
+initial_velocity_max = 10.0
+angular_velocity_min = -1.60933e-05
+angular_velocity_max = 120.0
+gravity = Vector3(0, -7, 0)
+linear_accel_min = -2.23517e-06
+linear_accel_max = 6.0
+damping_min = 5.0
+damping_max = 7.0
+turbulence_enabled = true
+turbulence_noise_strength = 20.0
+turbulence_noise_speed_random = 1.0
+turbulence_influence_min = 0.01
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_b0n3f"]
+transparency = 1
+cull_mode = 2
+albedo_texture = ExtResource("1_ym2oc")
+backlight_enabled = true
+backlight = Color(0.800491, 0.800491, 0.800491, 1)
+
+[sub_resource type="QuadMesh" id="QuadMesh_01xsn"]
+material = SubResource("StandardMaterial3D_b0n3f")
+size = Vector2(0.5, 0.5)
+
+[sub_resource type="Resource" id="Resource_5fmy1"]
+script = ExtResource("9_y506e")
+duration = 1.0
+transition = 7
+ease = 2
+
+[sub_resource type="Resource" id="Resource_y506e"]
+script = ExtResource("9_y506e")
+duration = 1.0
+transition = 0
+ease = 2
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_m8xwf"]
+size = Vector3(1.62744, 1, 8.5722)
+
+[node name="Level1a" type="Node3D"]
+script = ExtResource("1_5fmy1")
+
+[node name="Leaf Particle System" type="GPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.85279, 0)
+amount = 30
+lifetime = 10.0
+randomness = 1.0
+process_material = SubResource("ParticleProcessMaterial_jtsvn")
+draw_pass_1 = SubResource("QuadMesh_01xsn")
+
+[node name="Level1aIsland" parent="." instance=ExtResource("1_o3axy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -10.5723, 0)
+
+[node name="Camera3D" type="Camera3D" parent="."]
+physics_interpolation_mode = 1
+transform = Transform3D(1, 0, 0, 0, 0.819151, 0.573576, 0, -0.573576, 0.819151, -11.5625, 1.91792, 14.6591)
+
+[node name="PhantomCameraHost" type="Node" parent="Camera3D"]
+process_priority = 300
+process_physics_priority = 300
+script = ExtResource("4_76gsv")
+host_layers = 2
+metadata/_custom_type_script = "uid://bd046eokvcnu2"
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = ExtResource("3_jtsvn")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.810655, -0.486238, -0.326209, 0.568957, 0.785736, 0.242708, 0.1383, -0.382351, 0.913609, 0.922671, 0.780919, 0.819122)
+shadow_enabled = true
+
+[node name="Player" parent="." groups=["current_level"] instance=ExtResource("7_oyuya")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.5625, -2.05708, 10.3791)
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("8_m8xwf")
+autoplay = true
+parameters/looping = true
+
+[node name="MovementCam" type="Node3D" parent="." node_paths=PackedStringArray("follow_target")]
+transform = Transform3D(1, 0, 0, 0, 0.819151, 0.573576, 0, -0.573576, 0.819151, -11.5625, 1.91792, 14.6591)
+top_level = true
+script = ExtResource("8_5fmy1")
+priority = 1
+follow_mode = 2
+follow_target = NodePath("../Player")
+tween_resource = SubResource("Resource_5fmy1")
+host_layers = 2
+follow_offset = Vector3(0, 3.975, 4.28)
+follow_damping = true
+follow_damping_value = Vector3(0.275, 0.275, 0.275)
+follow_distance = 2.67
+dead_zone_width = 0.23
+dead_zone_height = 0.274
+spring_length = 2.67
+metadata/_custom_type_script = "uid://csjccrhj5wnx7"
+
+[node name="ThinkCam" type="Node3D" parent="." node_paths=PackedStringArray("follow_target")]
+transform = Transform3D(1.00666, 0, 0, 0, 0.980639, 0.195826, 0, -0.195826, 0.980639, -13.4475, 0.14292, 12.2991)
+top_level = true
+script = ExtResource("8_5fmy1")
+follow_mode = 2
+follow_target = NodePath("../Player")
+tween_resource = SubResource("Resource_y506e")
+host_layers = 2
+follow_offset = Vector3(-1.885, 2.2, 1.92)
+metadata/_custom_type_script = "uid://csjccrhj5wnx7"
+
+[node name="DialogueTrigger" parent="." instance=ExtResource("10_y506e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.79006, -2.65706, 9.74366)
+title = "num9kun"
+
+[node name="Num" parent="DialogueTrigger" instance=ExtResource("11_oyuya")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.863901, 0)
+num_value = 9
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DialogueTrigger"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.29178, 0, 0.264557)
+shape = SubResource("BoxShape3D_m8xwf")

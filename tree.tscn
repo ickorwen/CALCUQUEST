@@ -1,0 +1,119 @@
+[gd_scene load_steps=10 format=3 uid="uid://bq2353busm8x3"]
+
+[ext_resource type="Script" uid="uid://jdpl1luyb8t6" path="res://scripts/tree.gd" id="1_d2g23"]
+[ext_resource type="Texture2D" uid="uid://bdv62j0v72i0u" path="res://assets/Functional Assets/Tree_Gizmo.png" id="2_44ud8"]
+[ext_resource type="Texture2D" uid="uid://bcrm57l3t6ppx" path="res://assets/Functional Assets/Tree_GizmoHL.png" id="3_ind6k"]
+[ext_resource type="FontFile" uid="uid://dkr3i28ioxm04" path="res://assets/Papernotes Bold.ttf" id="4_6vbnm"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_l07pr"]
+size = Vector3(1.14844, 1.13098, 0.103485)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_svejp"]
+size = Vector3(4.80469, 4.41128, 2.25871)
+
+[sub_resource type="Animation" id="Animation_tql22"]
+resource_name = "COLLAPSE"
+length = 0.1689
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Tree/Sprite3D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.166667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0.1, 0.1, 0.1), Vector3(0.1, 0.001, 0.1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Tree/Sprite3D:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.166667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 1.46865, 0), Vector3(0, -0.265978, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_jbdfk"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Tree/Sprite3D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.1, 0.1, 0.1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Tree/Sprite3D:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 1.46865, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_jbdfk"]
+_data = {
+&"COLLAPSE": SubResource("Animation_tql22"),
+&"RESET": SubResource("Animation_jbdfk")
+}
+
+[node name="Tree" type="StaticBody3D"]
+collision_layer = 3
+collision_mask = 3
+script = ExtResource("1_d2g23")
+target_value = 5
+metadata/_custom_type_script = "uid://dp1nx7prt2i18"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.169098, 0.0654907, -0.0149422)
+shape = SubResource("BoxShape3D_l07pr")
+
+[node name="Area3D" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1856, 0.42559)
+collision_layer = 3
+collision_mask = 3
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.391701, 1.70564, -0.163023)
+shape = SubResource("BoxShape3D_svejp")
+debug_color = Color(0.937255, 0, 0.635294, 1)
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+transform = Transform3D(0.165, 0, 0, 0, 0.165, 0, 0, 0, 0.165, 0, 2.94699, 0)
+texture = ExtResource("2_44ud8")
+
+[node name="Highlight" type="Sprite3D" parent="Sprite3D"]
+render_priority = -1
+texture = ExtResource("3_ind6k")
+
+[node name="Label3D" type="Label3D" parent="."]
+transform = Transform3D(1.67, 0, 0, 0, 1.67, 0, 0, 0, 1.67, -0.246, 1.5, 0.546)
+pixel_size = 0.0056
+render_priority = 1
+text = "5"
+font = ExtResource("4_6vbnm")
+font_size = 122
+
+[node name="TreeAnimation" type="AnimationPlayer" parent="."]
+root_node = NodePath("../..")
+libraries = {
+&"": SubResource("AnimationLibrary_jbdfk")
+}
+
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]
+[connection signal="body_exited" from="Area3D" to="." method="_on_area_3d_body_exited"]

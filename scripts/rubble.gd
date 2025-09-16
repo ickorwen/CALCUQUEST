@@ -2,7 +2,7 @@ extends ConditionedObject
 
 
 @onready var label_3d: Label3D = $Label3D
-@onready var highlight: Sprite3D = $Sprite3D/Highlight
+@onready var highlight: MeshInstance3D = $Rubble/Highlight
 @onready var rubble_animation: AnimationPlayer = $RubbleAnimation
 var current_num: Num = null
 
@@ -40,6 +40,7 @@ func _on_area_3d_body_entered(body: Node3D) -> void:
 		# Check if it's being dragged
 		if body.dragging:
 			highlight.show()
+			
 
 func _on_area_3d_body_exited(body: Node3D) -> void:
 	# Check for player first

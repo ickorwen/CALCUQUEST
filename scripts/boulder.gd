@@ -2,7 +2,7 @@ extends ConditionedObject
 
 
 @onready var label_3d: Label3D = $Label3D
-@onready var highlight: Sprite3D = $Sprite3D/Highlight
+@onready var highlight: MeshInstance3D = $Icosphere_002/Highlight
 var current_num: Num = null
 @onready var boulder_animation: AnimationPlayer = $BoulderAnimation
 

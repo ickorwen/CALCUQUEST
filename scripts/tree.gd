@@ -58,6 +58,7 @@ func _on_num_released(num: Num) -> void:
 	var gizmo: RigidBody3D = get_parent().get_node("Gizmo")
 	if gizmo:
 		gizmo.gravity_scale = 1
+		gizmo.process_mode = Node.PROCESS_MODE_INHERIT
 	
 	# Remove the num from NumManager's collection and queue_free it
 	var num_manager = get_node("/root/NumManager")

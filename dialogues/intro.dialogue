@@ -5,6 +5,12 @@ Abby: That crash hurt!
 Abby: How will I get around now? I need parts to repair my ship to fly again!
 => END
 
+~ shaking_bushes
+Abby: I need to look for my gizmo!
+Abby: Maybe they're in these [b]suspicious[/b] bushes
+
+=> END
+
 ~ jumpscare
 Abby: Aaah! That scared me!
 Abby: What are you? Are you numbers?
@@ -70,4 +76,16 @@ Abby: Got it!
 Abby: The Gizmo says there another part nearby!
 Abby: It might be through this path.
 do EventManager.mark_event("left_wing_retrieved")
+=> END
+
+~ num9kun
+
+Number 9: HI!
+Number 9: HELLO!
+Abby: Woah!
+Abby: You guys can talk?
+Number 9: NO!
+Number 9: 9 IS SPECIAL!
+Abby: Oh.
+Abby: Uhhhh
 => END

@@ -1,11 +1,13 @@
-[gd_scene load_steps=34 format=3 uid="uid://h2doopfhgref"]
+[gd_scene load_steps=36 format=3 uid="uid://h2doopfhgref"]
 
 [ext_resource type="Script" uid="uid://ccc0b1gxopatd" path="res://scripts/player.gd" id="1_onrkg"]
+[ext_resource type="Script" path="res://CustomCursor.gd" id="2_1jxqw"]
 [ext_resource type="Texture2D" uid="uid://3f65l6cujce7" path="res://assets/sprite_sheet.png" id="2_2hs0m"]
 [ext_resource type="Script" uid="uid://cftjubpnr001y" path="res://scripts/collection_area.gd" id="3_i3pqv"]
 [ext_resource type="Texture2D" uid="uid://ckga2v48wahxk" path="res://assets/ThinkingBubble.png" id="4_hqtel"]
 [ext_resource type="Script" uid="uid://d7axh0m3dpil" path="res://scripts/think_bubble.gd" id="4_sweqy"]
 [ext_resource type="PackedScene" uid="uid://ctc0jnwrp14n7" path="res://operand_slot.tscn" id="6_2hs0m"]
+[ext_resource type="PackedScene" uid="uid://5yjclgbv14wv" path="res://pause_menu.tscn" id="7_1jxqw"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_c6xj6"]
 radius = 0.0916461
@@ -20,7 +22,7 @@ point_count = 5
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_onrkg"]
 height = 0.224609
-radius = 1.66406
+radius = 1.84082
 
 [sub_resource type="Animation" id="Animation_onrkg"]
 resource_name = "IDLE"
@@ -197,6 +199,9 @@ collision_layer = 2
 collision_mask = 2
 script = ExtResource("1_onrkg")
 
+[node name="CustomCursor" type="Node" parent="."]
+script = ExtResource("2_1jxqw")
+
 [node name="PlayerSprite" type="Sprite3D" parent="."]
 transform = Transform3D(0.11, 0, 0, 0, 0.11, 0, 0, 0, 0.11, 0, 0.684267, 0)
 alpha_cut = 1
@@ -224,6 +229,7 @@ debug_color = Color(0.972514, 0, 0.440508, 0.42)
 libraries = {
 &"": SubResource("AnimationLibrary_i3pqv")
 }
+speed_scale = 4.0
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
 tree_root = SubResource("AnimationNodeStateMachine_ivps1")
@@ -296,6 +302,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.97248, 2.39403, 0.177251)
 [node name="OperandSlot2" parent="ThinkBubble" instance=ExtResource("6_2hs0m")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.935574, 2.37505, 0.177251)
 
+[node name="Movement Timer" type="Timer" parent="."]
+wait_time = 6.0
+autostart = true
+
+[node name="PauseMenu" parent="." instance=ExtResource("7_1jxqw")]
+
 [connection signal="body_entered" from="CollectionRadius" to="." method="_on_collection_radius_body_entered"]
 [connection signal="body_entered" from="CollectionRadius" to="CollectionRadius" method="_on_body_entered"]
 [connection signal="input_event" from="PlusNipple" to="ThinkBubble" method="_on_plus_nipple_input_event"]
@@ -303,3 +315,4 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.935574, 2.37505, 0.177251)
 [connection signal="input_event" from="ThinkBubble/Thought/Solve/SolveButton" to="ThinkBubble" method="_on_solve_button_input_event"]
 [connection signal="num_value_changed" from="ThinkBubble/OperandSlot" to="ThinkBubble" method="_on_operand_slot_num_value_changed"]
 [connection signal="num_value_changed" from="ThinkBubble/OperandSlot2" to="ThinkBubble" method="_on_operand_slot_num_value_changed"]
+[connection signal="timeout" from="Movement Timer" to="." method="_on_movement_timer_timeout"]

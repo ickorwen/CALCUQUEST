@@ -9,6 +9,7 @@ var dialogue = load("res://dialogues/intro.dialogue")
 var current_dialog_type: String = ""
 var is_dialogue_active: bool = false
 var active_balloon: Node = null
+var first_bush_trampled := false
 
 func _ready() -> void:
 	level_animations.play("LEVELPAN")
@@ -16,10 +17,12 @@ func _ready() -> void:
 	dialogue_manager.connect("dialogue_ended", _on_dialogue_ended)
 	dialogue_manager.connect("mutated", _on_dialogue_mutated)
 	
+	
 	# Setup dialog timer
 	dialog_timer.one_shot = true
 	dialog_timer.timeout.connect(_on_dialog_timeout)
 	add_child(dialog_timer)
+
 
 func _on_level_animations_animation_finished(anim_name: StringName) -> void:
 	if anim_name == "LEVELPAN":
@@ -41,6 +44,7 @@ func _on_event_marked(event_name: String):
 
 func _on_dialogue_ended(_resource: DialogueResource):
 	is_dialogue_active = false
+	# Player is listening to dialogue_ended signal directly
 	active_balloon = null
 	if wing_cam.priority == 2:
 		wing_cam.priority = 0
@@ -49,6 +53,8 @@ func _on_dialog_timeout() -> void:
 	if is_dialogue_active:
 		# We can't directly end the dialogue, but we can mark it as done from our side
 		is_dialogue_active = false
+		# Player is listening for dialogue_ended signal
+		dialogue_manager.dialogue_ended.emit(null)  # Emit dialogue_ended signal for the player
 		EventManager.mark_event("dialog_timeout_" + current_dialog_type)
 		
 		# Force close the balloon if it still exists
@@ -70,6 +76,7 @@ func _on_dialogue_mutated(mutation: Dictionary) -> void:
 func show_timed_dialog(dialog_res, dialog_id: String, time: float = 5.0) -> void:
 	current_dialog_type = dialog_id
 	is_dialogue_active = true
+	# Dialogue manager will emit signals that the player listens to
 	active_balloon = dialogue_manager.show_dialogue_balloon(dialog_res, dialog_id)
 	
 	# Give the balloon a moment to initialize

@@ -1,0 +1,44 @@
+[gd_scene load_steps=5 format=3 uid="uid://b8t0mk1akr41t"]
+
+[ext_resource type="Texture2D" uid="uid://dvgoby4hba0mh" path="res://assets/level_design/leaf.png" id="1_nwkv0"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_nwkv0"]
+particle_flag_rotate_y = true
+emission_shape_offset = Vector3(0, 12.56, 0)
+emission_shape_scale = Vector3(40.41, 13.98, 32.865)
+emission_shape = 3
+emission_box_extents = Vector3(1, 1, 1)
+spread = 180.0
+initial_velocity_min = 5.0
+initial_velocity_max = 10.0
+angular_velocity_min = -1.60933e-05
+angular_velocity_max = 120.0
+gravity = Vector3(0, -7, 0)
+linear_accel_min = -2.23517e-06
+linear_accel_max = 6.0
+damping_min = 5.0
+damping_max = 7.0
+turbulence_enabled = true
+turbulence_noise_strength = 20.0
+turbulence_noise_speed_random = 1.0
+turbulence_influence_min = 0.01
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_b0n3f"]
+transparency = 1
+cull_mode = 2
+albedo_texture = ExtResource("1_nwkv0")
+backlight_enabled = true
+backlight = Color(0.800491, 0.800491, 0.800491, 1)
+
+[sub_resource type="QuadMesh" id="QuadMesh_qsseh"]
+material = SubResource("StandardMaterial3D_b0n3f")
+size = Vector2(0.75, 0.75)
+
+[node name="Particle System" type="Node3D"]
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
+amount = 20
+lifetime = 10.0
+randomness = 1.0
+process_material = SubResource("ParticleProcessMaterial_nwkv0")
+draw_pass_1 = SubResource("QuadMesh_qsseh")

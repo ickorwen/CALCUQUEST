@@ -3,6 +3,7 @@ class_name CustomBalloon extends DialogueManagerExampleBalloon
 
 # Reference to EventManager for timeout events
 @onready var EventManager = get_node("/root/EventManager")
+@onready var dialogue_sound: AudioStreamPlayer = $DialogueSound
 
 ## Timer-related variables
 var is_timed_dialogue: bool = false
@@ -278,3 +279,9 @@ func force_show_timer() -> void:
 		_update_timer_display()
 
 #endregion
+
+
+func _on_dialogue_label_spoke(letter: String, letter_index: int, speed: float) -> void:
+	if not letter in [" ", "."]:
+		dialogue_sound.pitch_scale = randf_range(1.5, 2.0)
+		dialogue_sound.play()

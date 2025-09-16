@@ -3,6 +3,7 @@ class_name Num
 
 const FOLLOW_SPEED = 4.0
 const ARRIVAL_DISTANCE = 0.1
+const DRAG_SMOOTHNESS = 15.0  # Added for smooth dragging
 
 @export var num_value: int = 0
 
@@ -19,32 +20,68 @@ var follow_index: int = 0
 var anim_time = 0
 var hop_height := 0.5  # how high it hops
 var hop_speed := 12 #how fast it hops
+
 # Dragging variables
 var dragging := false
 var drag_depth := 5.0  # distance from camera when dragging
 var ground_y := 0.0  # Store the y-position for ground level
+var drag_target_position: Vector3 = Vector3.ZERO  # Added for smooth dragging
+
+@export var use_direct_dragging: bool = false  # Toggle between smooth and direct
+@export var drag_response: float = 25.0  # Adjustable in inspector
 
 # Slot variables
 var in_slot := false
 var current_slot: Node = null
 
+# Player Movement Values
+var player_velocity = Vector3.ZERO
+var last_player_position = Vector3.ZERO
+var player_movement_offset = Vector3.ZERO
+
 func _ready() -> void:
 	setup_visuals()
 	print("num created with value:", num_value)
-	add_to_group("Num") # so the player’s Area3D can detect it
+	add_to_group("Num") # so the player's Area3D can detect it
 	ground_y = global_position.y
 
 func _get_gravity() -> Vector3:
 	return Vector3(0, -9.8, 0)
-
 func _physics_process(delta: float) -> void:
-	# When dragging, skip physics calculations
+	# Handle dragging with smooth physics-based movement
 	if dragging:
+		# Calculate player movement since last frame
+		var player = get_tree().get_first_node_in_group("Player")
+		if player:
+			if last_player_position != Vector3.ZERO:
+				player_velocity = (player.global_position - last_player_position) / delta
+				player_movement_offset = player.global_position - last_player_position
+			
+			last_player_position = player.global_position
+			
+			# Add player movement to drag target to keep object moving with player
+			drag_target_position += player_movement_offset
+		
+		# HYBRID APPROACH: Direct for large movements, smooth for small adjustments
+		var distance = global_position.distance_to(drag_target_position)
+		
+		if distance > 0.5:  # If far away, snap quickly
+			global_position = global_position.lerp(drag_target_position, 0.8)
+			velocity = Vector3.ZERO
+		else:  # If close, use smooth physics
+			var direction = (drag_target_position - global_position)
+			velocity = direction * 35.0  # Higher value for more responsiveness
+			move_and_slide()
 		return
+	else:
+		# Reset player tracking when not dragging
+		last_player_position = Vector3.ZERO
+		player_velocity = Vector3.ZERO
 		
 	# If in a slot, don't move
 	if in_slot and current_slot != null:
 		velocity = Vector3.ZERO
+		move_and_slide()
 		return
 		
 	# If we have a current_slot reference but we're not actually in the slot,
@@ -83,9 +120,6 @@ func _physics_process(delta: float) -> void:
 			# Smoothly transition to rest position when stopped
 			visual.position.y = lerp(visual.position.y, 0.0, delta * 5.0)
 			visual.scale = visual.scale.lerp(Vector3.ONE, delta * 5.0)
-	
-	
-	
 	
 	move_and_slide()
 
@@ -172,10 +206,6 @@ func _input(event: InputEvent) -> void:
 							if index < player.path_points.size():
 								var path_index = player.path_points.size() - 1 - index
 								target_position = player.path_points[path_index]
-				
-				# Re-enable physics
-				if not is_collected:
-					velocity = Vector3.ZERO
 		
 		# Handle scroll wheel for depth adjustment
 		elif dragging and event.pressed:
@@ -212,7 +242,6 @@ func _input(event: InputEvent) -> void:
 			var collision = space_state.intersect_ray(world_query)
 			
 			# Determine target position
-			var drag_target
 			if collision:
 				# Get ray from camera to collision
 				var camera_to_collision = collision.position - from
@@ -221,26 +250,19 @@ func _input(event: InputEvent) -> void:
 				# Position it in front of anything else at that mouse position
 				# Use a shorter distance to ensure it's in front of the collision
 				var shorter_distance = max(1.0, distance_to_collision * 0.9)
-				drag_target = from + dir * shorter_distance
+				drag_target_position = from + dir * shorter_distance
 			else:
 				# No collision, use a default depth
-				drag_target = from + dir * drag_depth
+				drag_target_position = from + dir * drag_depth
 			
 			# Check if the drag target is within allowed distance from player
 			var player = get_tree().get_first_node_in_group("Player")
 			if player:
-				var distance_to_player = drag_target.distance_to(player.global_position)
+				var distance_to_player = drag_target_position.distance_to(player.global_position)
 				if distance_to_player > MAX_DRAG_DISTANCE:
 					# Beyond allowed range, limit to maximum distance in that direction
-					var direction_to_target = (drag_target - player.global_position).normalized()
-					drag_target = player.global_position + direction_to_target * MAX_DRAG_DISTANCE
-					# Visual feedback that we're at the limit could go here
-			
-			# Directly set position - for exact mouse following
-			global_position = drag_target
-			
-			# Zero out velocity to prevent additional movement in physics process
-			velocity = Vector3.ZERO
+					var direction_to_target = (drag_target_position - player.global_position).normalized()
+					drag_target_position = player.global_position + direction_to_target * MAX_DRAG_DISTANCE
 			
 
 func _on_drag_detect_input_event(_camera: Node, event: InputEvent, _event_position: Vector3, _normal: Vector3, _shape_idx: int) -> void:
@@ -251,6 +273,9 @@ func _on_drag_detect_input_event(_camera: Node, event: InputEvent, _event_positi
 	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
 		print("dragging: ", num_value)
 		dragging = true
+		
+		# SET DRAG TARGET TO CURRENT POSITION FIRST to prevent flickering
+		drag_target_position = global_position
 		
 		# If this Num was in a slot, notify the slot that it's being removed
 		if in_slot and current_slot != null:
