@@ -4,6 +4,10 @@ extends ConditionedObject
 @onready var label_3d: Label3D = $Label3D
 @onready var highlight: MeshInstance3D = $Rubble/Highlight
 @onready var rubble_animation: AnimationPlayer = $RubbleAnimation
+@onready var level_border_2: Node3D = $"../LevelBorder_2"
+@onready var boulder_prevention: Area3D = $"../BoulderPrevention"
+
+
 var current_num: Num = null
 
 func _ready() -> void:
@@ -27,10 +31,20 @@ func _process(_delta: float) -> void:
 
 func _on_area_3d_body_entered(body: Node3D) -> void:
 	print("Body entered: ", body.name, " (", body.get_class(), ")")
-	
+
 	if body.name == "Player":
 		label_3d.visible = true
+		if is_instance_valid(level_border_2):
+			level_border_2.queue_free()
+		
+		if is_instance_valid(boulder_prevention):
+			boulder_prevention.queue_free()
+		
+			
+		
+		
 		print("Player entered tree area")
+		
 	
 	if body is Num:
 		# Store reference to the num
@@ -47,7 +61,6 @@ func _on_area_3d_body_exited(body: Node3D) -> void:
 	if body.name == "Player":
 		label_3d.visible = false
 		print("Player exited tree area")
-	
 	# Then check for Num
 	elif body is Num and body == current_num:
 		highlight.hide()
@@ -58,6 +71,7 @@ func _on_area_3d_body_exited(body: Node3D) -> void:
 func _on_num_released(num: Num) -> void:
 	# Execute the object's reaction
 	rubble_animation.play("COLLAPSE")
+	
 	
 	# Remove the num from NumManager's collection and queue_free it
 	var num_manager = get_node("/root/NumManager")

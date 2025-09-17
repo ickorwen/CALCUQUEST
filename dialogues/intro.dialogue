@@ -52,21 +52,22 @@ Abby: What's behind that boulder?
 => END
 
 ~ orb_absorb
-
-Abby: What's this?
+if EventManager.orb_first_try:
+	Abby: What's this?
+~ try_again
 Abby: What is the sum of 6 + 3?
 - 9
 	Abby: Correct!
 	do EventManager.mark_event("quiz_correct_math_orb")
 - 3
 	Abby: Nope!
-	do EventManager.mark_event("quiz_incorrect_math_orb")
+	=> try_again
 - 6
 	Abby: Nope!
-	do EventManager.mark_event("quiz_incorrect_math_orb")
+	=> try_again
 - 7
 	Abby: Nope!
-	do EventManager.mark_event("quiz_incorrect_math_orb")
+	=> try_again
 => END
 
 
@@ -88,4 +89,9 @@ Number 9: NO!
 Number 9: 9 IS SPECIAL!
 Abby: Oh.
 Abby: Uhhhh
+=> END 
+
+~ rubble_urge
+
+Abby: Aw gee, I should check on my gizmo to the right of here.
 => END

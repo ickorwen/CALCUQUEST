@@ -5,18 +5,23 @@ extends Node3D
 @onready var dialogue_manager = DialogueManager
 @onready var wing_cam: PhantomCamera3D = $WingCam
 @onready var dialog_timer: Timer = Timer.new()
+@onready var orb_spawn_timer: Timer = $OrbSpawnTimer
+@onready var math_orb: RigidBody3D = $Math_Orb
+
 var dialogue = load("res://dialogues/intro.dialogue")
+var orb = load("res://math_orb.tscn")
 var current_dialog_type: String = ""
 var is_dialogue_active: bool = false
 var active_balloon: Node = null
 var first_bush_trampled := false
+var orb_spawn_position: Vector3
 
 func _ready() -> void:
 	level_animations.play("LEVELPAN")
 	EventManager.connect("event_marked", _on_event_marked)
 	dialogue_manager.connect("dialogue_ended", _on_dialogue_ended)
 	dialogue_manager.connect("mutated", _on_dialogue_mutated)
-	
+	orb_spawn_position = math_orb.position
 	
 	# Setup dialog timer
 	dialog_timer.one_shot = true
@@ -41,6 +46,9 @@ func _on_event_marked(event_name: String):
 	if event_name == "left_wing_retrieved":
 		var end_screen = preload("res://end.tscn")
 		add_child(end_screen.instantiate())
+	
+	if event_name == "dialog_timeout_orb_absorb":
+		orb_spawn_timer.start()
 
 func _on_dialogue_ended(_resource: DialogueResource):
 	is_dialogue_active = false
@@ -93,3 +101,10 @@ func show_timed_dialog(dialog_res, dialog_id: String, time: float = 5.0) -> void
 	
 	# Keep our internal timer as backup
 	dialog_timer.start(time)
+
+
+func _on_orb_spawn_timer_timeout() -> void:
+	var math_orb_instance = orb.instantiate()
+	
+	math_orb_instance.global_position = orb_spawn_position
+	add_child(math_orb_instance)

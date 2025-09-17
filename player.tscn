@@ -1,17 +1,19 @@
-[gd_scene load_steps=36 format=3 uid="uid://h2doopfhgref"]
+[gd_scene load_steps=38 format=3 uid="uid://h2doopfhgref"]
 
 [ext_resource type="Script" uid="uid://ccc0b1gxopatd" path="res://scripts/player.gd" id="1_onrkg"]
 [ext_resource type="Script" path="res://CustomCursor.gd" id="2_1jxqw"]
 [ext_resource type="Texture2D" uid="uid://3f65l6cujce7" path="res://assets/sprite_sheet.png" id="2_2hs0m"]
+[ext_resource type="PackedScene" uid="uid://c6j3fr0lwaet3" path="res://controls_screen.tscn" id="2_b26j0"]
 [ext_resource type="Script" uid="uid://cftjubpnr001y" path="res://scripts/collection_area.gd" id="3_i3pqv"]
 [ext_resource type="Texture2D" uid="uid://ckga2v48wahxk" path="res://assets/ThinkingBubble.png" id="4_hqtel"]
 [ext_resource type="Script" uid="uid://d7axh0m3dpil" path="res://scripts/think_bubble.gd" id="4_sweqy"]
 [ext_resource type="PackedScene" uid="uid://ctc0jnwrp14n7" path="res://operand_slot.tscn" id="6_2hs0m"]
-[ext_resource type="PackedScene" uid="uid://5yjclgbv14wv" path="res://pause_menu.tscn" id="7_1jxqw"]
+[ext_resource type="PackedScene" path="res://pause_menu.tscn" id="7_1jxqw"]
+[ext_resource type="FontFile" uid="uid://bfjpnh0t8ehdx" path="res://assets/Super Kinds.ttf" id="8_n7ghd"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_c6xj6"]
 radius = 0.0916461
-height = 0.785879
+height = 1.48846
 
 [sub_resource type="Curve3D" id="Curve3D_onrkg"]
 _data = {
@@ -199,6 +201,8 @@ collision_layer = 2
 collision_mask = 2
 script = ExtResource("1_onrkg")
 
+[node name="ControlsScreen" parent="." instance=ExtResource("2_b26j0")]
+
 [node name="CustomCursor" type="Node" parent="."]
 script = ExtResource("2_1jxqw")
 
@@ -210,7 +214,7 @@ hframes = 5
 vframes = 5
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.367948, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.784851, 0)
 shape = SubResource("CapsuleShape3D_c6xj6")
 
 [node name="Path3D" type="Path3D" parent="."]
@@ -259,7 +263,7 @@ visible = false
 script = ExtResource("4_sweqy")
 
 [node name="Thought" type="Sprite3D" parent="ThinkBubble"]
-transform = Transform3D(0.13, 0, 0, 0, 0.13, 0, 0, 0, 0.13, -1.89733, 2.17077, 0)
+transform = Transform3D(0.13, 0, 0, 0, 0.13, 0, 0, 0, 0.13, -1.8451, 2.08122, 0.0326021)
 double_sided = false
 render_priority = 5
 texture = ExtResource("4_hqtel")
@@ -267,24 +271,31 @@ texture = ExtResource("4_hqtel")
 [node name="Operator" type="Label3D" parent="ThinkBubble/Thought"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.70136, 3.19853, 0.435302)
 pixel_size = 0.0081
+double_sided = false
+alpha_cut = 1
 outline_render_priority = 5
-modulate = Color(0, 0, 0, 1)
+modulate = Color(0.274909, 0.650983, 0.297791, 1)
 text = "+"
+font = ExtResource("8_n7ghd")
 font_size = 700
 
 [node name="Slots" type="Label3D" parent="ThinkBubble/Thought"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.5906, 3.19853, 0.435302)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.5365, 2.81369, 0.435302)
 pixel_size = 0.0081
 outline_render_priority = 6
 text = "[  ]      [  ]"
+font = ExtResource("8_n7ghd")
 font_size = 700
 horizontal_alignment = 0
 
 [node name="Solve" type="Label3D" parent="ThinkBubble/Thought"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.510815, -1.8947, 0.917683)
 pixel_size = 0.0081
+alpha_cut = 1
 outline_render_priority = 5
+modulate = Color(0.289123, 0.686096, 0.313617, 1)
 text = "[Solve]"
+font = ExtResource("8_n7ghd")
 font_size = 180
 
 [node name="SolveButton" type="Area3D" parent="ThinkBubble/Thought/Solve"]

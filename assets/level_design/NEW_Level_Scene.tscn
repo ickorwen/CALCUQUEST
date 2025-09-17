@@ -179,7 +179,7 @@ skeleton = NodePath("")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Island"]
 collision_layer = 255
-collision_mask = 2
+collision_mask = 7
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Island/StaticBody3D"]
 shape = SubResource("ConcavePolygonShape3D_xwo8m")

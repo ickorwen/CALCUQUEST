@@ -1,0 +1,47 @@
+[gd_scene load_steps=7 format=3 uid="uid://5tk43231wr60"]
+
+[ext_resource type="Script" uid="uid://vi652h65flcl" path="res://scripts/math_orb.gd" id="1_7t7ug"]
+[ext_resource type="Texture2D" uid="uid://7xohrrloesuf" path="res://assets/Functional Assets/Mathorb.png" id="2_svwb5"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_bej8n"]
+radius = 0.66717
+
+[sub_resource type="Animation" id="Animation_0gupw"]
+length = 0.001
+
+[sub_resource type="Animation" id="Animation_hhe36"]
+resource_name = "floating"
+length = 0.3005
+tracks/0/type = "position_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../LeftWing/Sprite3D")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1.6818, 0, 0, 0, 0.150623, 1.6818, 0, 0.265, 0, 0.3, 0.392293, 0, 0, 0)
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_pryqw"]
+_data = {
+&"RESET": SubResource("Animation_0gupw"),
+&"floating": SubResource("Animation_hhe36")
+}
+
+[node name="Math_Orb" type="RigidBody3D"]
+axis_lock_angular_x = true
+axis_lock_angular_y = true
+axis_lock_angular_z = true
+script = ExtResource("1_7t7ug")
+metadata/_custom_type_script = "uid://dpr7luxhq2tuy"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_bej8n")
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+transform = Transform3D(0.21, 0, 0, 0, 0.21, 0, 0, 0, 0.21, 0, 0, 0)
+billboard = 1
+texture = ExtResource("2_svwb5")
+
+[node name="MathOrbAnimation" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_pryqw")
+}

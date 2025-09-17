@@ -19,7 +19,7 @@ func _on_area_3d_body_entered(body: Node3D) -> void:
 		animation_player.speed_scale = 1
 		animation_player.play("COLLAPSE")
 		for i in stored_nums.size():
-			NumManager.spawn_num(global_position, stored_nums[i])
+			NumManager.spawn_num(Vector3(global_position.x, global_position.y + 1, global_position.z), stored_nums[i])
 	
 
 func _on_animation_player_animation_finished(anim_name: StringName) -> void:

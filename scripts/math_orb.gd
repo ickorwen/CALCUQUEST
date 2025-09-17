@@ -9,7 +9,7 @@ func _ready():
 	if animation_player.has_animation("math_orb_float"):
 		var idle_anim = animation_player.get_animation("math_orb_float")
 		animation_player.speed_scale = 0.15
-		idle_anim.loop_mode = 1  # 1 = Loop, 0 = None, 2 = PingPong
+		idle_anim.loop_mode = 1 # 1 = Loop, 0 = None, 2 = PingPong
 		animation_player.play("math_orb_float")
 
 func collect():
@@ -29,5 +29,8 @@ func _on_event_marked(event_name: String) -> void:
 			# Now we can remove the orb
 			queue_free()
 		elif event_name == "quiz_incorrect_math_orb" or event_name == "dialog_timeout_orb_absorb":
+			EventManager.falsify_event("dialog_timeout_orb_absorb")
+			EventManager.falsify_event("math_orb_collected")
+			
 			# No num spawned for incorrect answers or timeout
 			queue_free()

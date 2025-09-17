@@ -90,3 +90,5 @@ Panel/styles/panel = SubResource("StyleBoxFlat_ht7no")
 PanelContainer/styles/panel = SubResource("StyleBoxFlat_qkmqt")
 ProgressBar/styles/background = SubResource("StyleBoxFlat_a7svg")
 ProgressBar/styles/fill = SubResource("StyleBoxFlat_biiad")
+RichTextLabel/styles/focus = null
+RichTextLabel/styles/normal = null

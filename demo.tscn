@@ -4,8 +4,8 @@
 [ext_resource type="Script" uid="uid://bcuy6c0wexqhn" path="res://scripts/demo.gd" id="1_jbdfk"]
 [ext_resource type="Environment" uid="uid://c4v0u1kq77xgb" path="res://assets/level_design/Environment Sprites/EnvironmentProperties/FoggyEnvironment.tres" id="2_gxmxl"]
 [ext_resource type="Texture2D" uid="uid://dvgoby4hba0mh" path="res://assets/level_design/leaf.png" id="2_ob8ie"]
-[ext_resource type="PackedScene" path="res://assets/level_design/NEW_Level_Scene.tscn" id="2_wavrw"]
-[ext_resource type="PackedScene" path="res://player.tscn" id="4_c6xj6"]
+[ext_resource type="PackedScene" uid="uid://clvvelpomq3su" path="res://assets/level_design/NEW_Level_Scene.tscn" id="2_wavrw"]
+[ext_resource type="PackedScene" uid="uid://h2doopfhgref" path="res://player.tscn" id="4_c6xj6"]
 [ext_resource type="Script" uid="uid://csjccrhj5wnx7" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_3d.gd" id="4_kem5a"]
 [ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="5_gxmxl"]
 [ext_resource type="AudioStream" uid="uid://btxfvjotl6j5h" path="res://assets/math gaming.mp3" id="8_n4w22"]
@@ -24,8 +24,7 @@
 [ext_resource type="Texture2D" uid="uid://ccnkt56lgq8d7" path="res://assets/level_design/rubble_texture.png" id="19_npcgs"]
 [ext_resource type="Texture2D" uid="uid://d2fyk8eue2t3q" path="res://assets/Functional Assets/Leftwing.png" id="21_l07pr"]
 [ext_resource type="Script" uid="uid://s7yl3qf4sr28" path="res://scripts/left_wing.gd" id="22_ob8ie"]
-[ext_resource type="Script" uid="uid://vi652h65flcl" path="res://scripts/math_orb.gd" id="24_npcgs"]
-[ext_resource type="Texture2D" uid="uid://7xohrrloesuf" path="res://assets/Functional Assets/Mathorb.png" id="25_ob8ie"]
+[ext_resource type="PackedScene" uid="uid://5tk43231wr60" path="res://math_orb.tscn" id="24_npcgs"]
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_wavrw"]
 particle_flag_rotate_y = true
@@ -148,7 +147,7 @@ _data = {
 size = Vector3(0.633789, 1.44448, 0.103485)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_svejp"]
-size = Vector3(2.35742, 4.41128, 2.25871)
+size = Vector3(2.35742, 2.82966, 2.25871)
 
 [sub_resource type="Animation" id="Animation_tql22"]
 resource_name = "COLLAPSE"
@@ -218,7 +217,7 @@ radius = 0.500212
 radius = 0.603602
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_gdsc3"]
-size = Vector3(4.04315, 2.08057, 10.6296)
+size = Vector3(4.89072, 2.08057, 10.6296)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_bej8n"]
 size = Vector3(6.89795, 1.89465, 10.1515)
@@ -400,9 +399,6 @@ _data = {
 &"floating": SubResource("Animation_hhe36")
 }
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_bej8n"]
-radius = 0.66717
-
 [sub_resource type="BoxShape3D" id="BoxShape3D_ob8ie"]
 size = Vector3(1.87988, 1, 2.13965)
 
@@ -414,6 +410,12 @@ size = Vector3(1, 1, 9.37524)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_wavrw"]
 size = Vector3(11.0848, 1, 1.45703)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_0gupw"]
+size = Vector3(9.76074, 1.22351, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_pryqw"]
+size = Vector3(1.31982, 0.823242, 9.45822)
 
 [node name="Demo" type="Node3D" groups=["current_level"]]
 script = ExtResource("1_jbdfk")
@@ -431,7 +433,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -9.79688, 0)
 
 [node name="Camera3D" type="Camera3D" parent="."]
 physics_interpolation_mode = 1
-transform = Transform3D(0.969898, 0.0569272, -0.236766, -1.86265e-09, 0.972291, 0.233775, 0.243513, -0.226737, 0.943022, -22.3424, 5.22092, 11.5128)
+transform = Transform3D(0.751212, -0.173663, 0.636806, 7.45058e-09, 0.964768, 0.263101, -0.660061, -0.197644, 0.724745, 10.333, 12.0012, 21.714)
 
 [node name="PhantomCameraHost" type="Node" parent="Camera3D"]
 process_priority = 300
@@ -447,7 +449,7 @@ transform = Transform3D(0.810655, -0.486238, -0.326209, 0.568957, 0.785736, 0.24
 shadow_enabled = true
 
 [node name="MovementCam" type="Node3D" parent="." node_paths=PackedStringArray("follow_target")]
-transform = Transform3D(1, 0, 0, 0, 0.819151, 0.573576, 0, -0.573576, 0.819151, -17.08, 4, -5.167)
+transform = Transform3D(1, 0, 0, 0, 0.819151, 0.573576, 0, -0.573576, 0.819151, -16.9627, 4.6988, -5.07108)
 top_level = true
 script = ExtResource("4_kem5a")
 priority = 1
@@ -464,7 +466,7 @@ spring_length = 2.67
 metadata/_custom_type_script = "uid://csjccrhj5wnx7"
 
 [node name="ShowcaseCam" type="Node3D" parent="." node_paths=PackedStringArray("look_at_target")]
-transform = Transform3D(0.750815, -0.183127, 0.634616, -1.49011e-08, 0.960795, 0.277251, -0.660508, -0.208165, 0.721383, 10.333, 12.0012, 21.714)
+transform = Transform3D(0.751209, -0.173662, 0.636806, 7.45056e-09, 0.964766, 0.2631, -0.660059, -0.197644, 0.724745, 10.333, 12.0012, 21.714)
 script = ExtResource("4_kem5a")
 priority = 2
 look_at_mode = 2
@@ -473,7 +475,7 @@ tween_resource = SubResource("Resource_4gl14")
 metadata/_custom_type_script = "uid://csjccrhj5wnx7"
 
 [node name="ShowcaseCam2" type="Node3D" parent="." node_paths=PackedStringArray("look_at_target")]
-transform = Transform3D(0.969896, 0.0569271, -0.236765, -1.86264e-09, 0.972289, 0.233774, 0.243513, -0.226737, 0.943022, -22.3424, 5.22092, 11.5128)
+transform = Transform3D(0.968327, 0.0510135, -0.244413, 5.58793e-09, 0.978903, 0.204316, 0.249679, -0.197845, 0.947901, -22.3424, 5.22092, 11.5128)
 script = ExtResource("4_kem5a")
 priority = 2
 look_at_mode = 2
@@ -488,7 +490,7 @@ tween_resource = SubResource("Resource_hu8bq")
 metadata/_custom_type_script = "uid://csjccrhj5wnx7"
 
 [node name="ThinkCam" type="Node3D" parent="." node_paths=PackedStringArray("follow_target")]
-transform = Transform3D(1.00666, 0, 0, 0, 0.980639, 0.195826, 0, -0.195826, 0.980639, -18.965, 2.225, -7.527)
+transform = Transform3D(1.00666, 0, 0, 0, 0.980639, 0.195826, 0, -0.195826, 0.980639, -18.8477, 2.9238, -7.43108)
 top_level = true
 script = ExtResource("4_kem5a")
 follow_mode = 2
@@ -498,7 +500,7 @@ follow_offset = Vector3(-1.885, 2.2, 1.92)
 metadata/_custom_type_script = "uid://csjccrhj5wnx7"
 
 [node name="Player" parent="." instance=ExtResource("4_c6xj6")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.08, 0.025, -9.447)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.9627, 0.723802, -9.35108)
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("8_n4w22")
@@ -552,7 +554,7 @@ collision_layer = 3
 collision_mask = 3
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Tree/Area3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.391701, 1.70564, -0.163024)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.391701, 2.49645, -0.163025)
 shape = SubResource("BoxShape3D_svejp")
 debug_color = Color(0.937255, 0, 0.635294, 1)
 
@@ -624,7 +626,7 @@ target_value = 4
 metadata/_custom_type_script = "uid://dp1nx7prt2i18"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Boulder"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.221498, -0.665329, -2.05273)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.645281, -0.665329, -2.05273)
 shape = SubResource("BoxShape3D_gdsc3")
 
 [node name="Area3D" type="Area3D" parent="Boulder"]
@@ -634,7 +636,7 @@ collision_mask = 3
 input_ray_pickable = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Boulder/Area3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.925703, 0.562959, -1.35249)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.925703, 1.42944, -1.35249)
 shape = SubResource("BoxShape3D_bej8n")
 debug_color = Color(0.937255, 0, 0.635294, 1)
 
@@ -693,7 +695,7 @@ collision_mask = 3
 input_ray_pickable = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Rubble/Area3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.843523, 0.846824, 0.401548)
+transform = Transform3D(1, 0, 2.98023e-08, 0, 1, 0, -2.98023e-08, 0, 1, -0.47791, 1.41155, 0.138837)
 shape = SubResource("BoxShape3D_npcgs")
 debug_color = Color(0.937255, 0, 0.635294, 1)
 
@@ -750,26 +752,8 @@ libraries = {
 &"": SubResource("AnimationLibrary_pryqw")
 }
 
-[node name="Math_Orb" type="RigidBody3D" parent="."]
+[node name="Math_Orb" parent="." instance=ExtResource("24_npcgs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23.5243, -1.8077, -0.278275)
-axis_lock_angular_x = true
-axis_lock_angular_y = true
-axis_lock_angular_z = true
-script = ExtResource("24_npcgs")
-metadata/_custom_type_script = "uid://dpr7luxhq2tuy"
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Math_Orb"]
-shape = SubResource("SphereShape3D_bej8n")
-
-[node name="Sprite3D" type="Sprite3D" parent="Math_Orb"]
-transform = Transform3D(0.21, 0, 0, 0, 0.21, 0, 0, 0, 0.21, 0, 0, 0)
-billboard = 1
-texture = ExtResource("25_ob8ie")
-
-[node name="MathOrbAnimation" type="AnimationPlayer" parent="Math_Orb"]
-libraries = {
-&"": SubResource("AnimationLibrary_pryqw")
-}
 
 [node name="DialogueTrigger3" parent="." instance=ExtResource("16_4gl14")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.5541, -2.38419e-07, -12.607)
@@ -799,7 +783,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.53738, -2.24701, 7.42194)
 title = "rubble"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="DialogueTrigger4"]
-transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 6.26192, -0.253645, -1.26407)
+transform = Transform3D(0.660238, 0, 0.751057, 0, 1, 0, -0.751057, 0, 0.660238, 6.26192, -0.10253, -1.26407)
 shape = SubResource("BoxShape3D_wavrw")
 
 [node name="DialogueTrigger5" parent="." instance=ExtResource("16_4gl14")]
@@ -828,8 +812,44 @@ collision_layer = 255
 input_ray_pickable = false
 
 [node name="CollisionPolygon3D" type="CollisionPolygon3D" parent="Border/StaticBody3D2"]
-depth = 2.36
+depth = 1.32
 polygon = PackedVector2Array(-11.4282, -6.47893, -12.3945, -4.9295, -12.6491, -3.34935, -12.3296, -2.30342, -12.6819, -0.514516, -12.271, 0.706618, -11.4797, 1.46806, -11.8461, 2.73184, -11.2752, 3.27995, -7.71233, 4.53796, -6.09752, 4.37314, -5.37083, 4.78621, -3.49049, 3.43455, -1.44483, 3.38976, 0.644531, 4.12321, 2.62576, 4.01026, 8.14901, 5.92618, 11.7867, 5.19557, 14.156, 5.11268, 15.5322, 6.20513, 18.9864, 6.5739, 19.8186, 8.22881, 21.4753, 8.30813, 22.5129, 9.71919, 25.4048, 11.1062, 29.7072, 11.6964, 30.9466, 11.304, 32.2509, 11.92, 34.5088, 11.0597, 36.0078, 10.5772, 38.8932, 10.9073, 42.0842, 10.2765, 41.8906, 5.75692, 39.0975, 5.03406, 36.9484, 5.82794, 34.9757, 5.6478, 33.5367, 6.24435, 31.8182, 5.8442, 30.4386, 6.38073, 28.1447, 5.93167, 27.5103, 4.58493, 26.0902, 4.02372, 27.0149, 2.50986, 25.922, 1.02746, 26.3885, -0.0668134, 26.7582, -0.864921, 28.2168, 0.948761, 30.5884, 4.56501, 39.7351, 3.6391, 42.9239, 4.751, 44.4105, 10.0613, 41.6162, 12.407, 31.7567, 12.5475, 23.363, 11.2284, 17.1872, 7.25172, 12.6361, 6.1245, 7.45468, 7.05345, 2.31079, 4.96266, -3.5945, 4.82772, -8.13305, 5.47461, -12.9481, 3.75263, -13.425, -3.19754, -12.6733, -7.0583, -11.7915, -7.76093)
+
+[node name="LevelBorder_1" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.0276, 0, -2.40868)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="LevelBorder_1"]
+collision_layer = 255
+collision_mask = 255
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="LevelBorder_1/StaticBody3D"]
+transform = Transform3D(0.831159, 0, -0.556035, 0, 1, 0, 0.556035, 0, 0.831159, -0.736468, 0.407987, 0.29311)
+shape = SubResource("BoxShape3D_0gupw")
+debug_color = Color(1, 0.0502524, 0.492643, 0.42)
+
+[node name="LevelBorder_2" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.51951, -3.11453, 1.4228)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="LevelBorder_2"]
+collision_layer = 255
+collision_mask = 255
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="LevelBorder_2/StaticBody3D"]
+transform = Transform3D(0.108988, 0, -0.994043, 0, 1, 0, 0.994043, 0, 0.108988, 0.183154, 0.407987, -0.333351)
+shape = SubResource("BoxShape3D_0gupw")
+debug_color = Color(1, 0.0502524, 0.492643, 0.42)
+
+[node name="BoulderPrevention" parent="." instance=ExtResource("16_4gl14")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.19383, -2.09479, 3.12276)
+title = "rubble_urge"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="BoulderPrevention"]
+transform = Transform3D(1, 0, 0, 0, 0.999894, -0.0145381, 0, 0.0145381, 0.999894, 0.159912, 0.106665, -2.31809)
+shape = SubResource("BoxShape3D_pryqw")
+
+[node name="OrbSpawnTimer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
 
 [connection signal="animation_finished" from="LevelAnimations" to="." method="_on_level_animations_animation_finished"]
 [connection signal="body_entered" from="Tree/Area3D" to="Tree" method="_on_area_3d_body_entered"]
@@ -840,3 +860,4 @@ polygon = PackedVector2Array(-11.4282, -6.47893, -12.3945, -4.9295, -12.6491, -3
 [connection signal="body_entered" from="Rubble/Area3D" to="Rubble" method="_on_area_3d_body_entered"]
 [connection signal="body_exited" from="Rubble/Area3D" to="Rubble" method="_on_area_3d_body_exited"]
 [connection signal="animation_finished" from="Rubble/RubbleAnimation" to="Rubble" method="_on_rubble_animation_animation_finished"]
+[connection signal="timeout" from="OrbSpawnTimer" to="." method="_on_orb_spawn_timer_timeout"]
